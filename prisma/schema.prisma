@@ -119,7 +119,7 @@ model Order {
   status             String         @default("pending")
   total              Float
   shippingCost       Float          @default(0)
-  shippiingDays      Int            @default(0)
+  shippingDays       Int            @default(0)
   shippingZipcode    String?
   shippingStreet     String?
   shippingNumber     String?
