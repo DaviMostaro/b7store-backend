@@ -53,3 +53,11 @@ export const createStripeCheckoutSession = async ({ cart, shippingCost, orderId 
 
     return session;
 }
+
+export const getConstructEvent = async (rawBody: string, sig: string, webhookKey: string) => {
+    try {
+        return stripe.webhooks.constructEvent(rawBody, sig, webhookKey);
+    } catch {
+        return null;
+    }
+}
