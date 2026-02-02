@@ -77,7 +77,9 @@ export const getProduct = async (id: number) => {
       price: true,
       description: true,
       categoryId: true,
-      images: true
+      images: {
+        orderBy: { id: 'asc' }
+      }
     }
   });
 

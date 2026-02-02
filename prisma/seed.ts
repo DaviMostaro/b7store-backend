@@ -79,8 +79,15 @@ async function main() {
         }),
         prisma.metadataValue.create({
             data: {
-                id: 'python',
-                label: 'Python',
+                id: 'javascript',
+                label: 'Javascript',
+                categoryMetadataId: 'tech'
+            }
+        }),
+        prisma.metadataValue.create({
+            data: {
+                id: 'react-native',
+                label: 'React Native',
                 categoryMetadataId: 'tech'
             }
         }),
@@ -115,9 +122,17 @@ async function main() {
         }),
         prisma.product.create({
             data: {
-                label: 'Camisa Python',
-                price: 79.99,
-                description: 'Camisa com design Python, para programadores Python',
+                label: 'Camisa NodeJS',
+                price: 80,
+                description: 'Camisa Node, para quem gosta de javascript no backend',
+                categoryId: category.id
+            }
+        }),
+        prisma.product.create({
+            data: {
+                label: 'Camisa JavaScript',
+                price: 67.40,
+                description: 'Camisa com estampa de JavaScript, perfeita para quem ama a linguagem',
                 categoryId: category.id
             }
         }),
@@ -134,24 +149,32 @@ async function main() {
 
     // Create ProductImages for each product
     console.log('Creating product images...')
-    const productImages = []
-    for (const product of products) {
-        const images = await Promise.all([
-            prisma.productImage.create({
-                data: {
-                    productId: product.id,
-                    url: `product_${product.id}_1.jpg`
-                }
-            }),
-            prisma.productImage.create({
-                data: {
-                    productId: product.id,
-                    url: `product_${product.id}_2.jpg`
-                }
-            })
-        ])
-        productImages.push(...images)
+
+    const productImageMap: Record<string, string[]> = {
+        'Camisa RN': ['camisa-rn-1.jpg', 'camisa-rn-2.jpg'],
+        'Camisa React': ['camisa-react-1.jpg', 'camisa-react-2.jpg'],
+        'Camisa NodeJS': ['camisa-nodejs-1.jpg', 'camisa-nodejs-2.jpg'],
+        'Camisa JavaScript': ['camisa-javascript-1.jpg', 'camisa-javascript-2.jpg'],
+        'Camisa PHP': ['camisa-php-1.jpg', 'camisa-php-2.jpg'],
     }
+
+    const productImages = []
+
+    for (const product of products) {
+    const images = productImageMap[product.label]
+    if (!images) continue
+
+    for (const url of images) {
+        const image = await prisma.productImage.create({
+        data: {
+            productId: product.id,
+            url
+        }
+        })
+        productImages.push(image)
+    }
+    }
+
     console.log('✅ Product images created:', productImages.length)
 
     // Create ProductMetadata for each product
@@ -161,7 +184,7 @@ async function main() {
             data: {
                 productId: products[0].id,
                 categoryMetadataId: 'tech',
-                metadataValueId: 'react'
+                metadataValueId: 'react-native'
             }
         }),
         prisma.productMetadata.create({
@@ -175,12 +198,19 @@ async function main() {
             data: {
                 productId: products[2].id,
                 categoryMetadataId: 'tech',
-                metadataValueId: 'python'
+                metadataValueId: 'node'
             }
         }),
         prisma.productMetadata.create({
             data: {
                 productId: products[3].id,
+                categoryMetadataId: 'tech',
+                metadataValueId: 'javascript'
+            }
+        }),
+        prisma.productMetadata.create({
+            data: {
+                productId: products[4].id,
                 categoryMetadataId: 'tech',
                 metadataValueId: 'php'
             }
