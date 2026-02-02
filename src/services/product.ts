@@ -33,10 +33,10 @@ export const getAllProducts = async (filters: ProductFilters) => {
         if (valueIds.length === 0) continue;
 
         metaFilters.push({
-            metaData: {
+            metadata: {
                 some: {
                     categoryMetadataId,
-                    metadataValue: { in: valueIds }
+                    metadataValueId: { in: valueIds }
                 }
             }
         });
