@@ -153,8 +153,8 @@ async function main() {
     const productImageMap: Record<string, string[]> = {
         'Camisa RN': ['camisa-rn-1.jpg', 'camisa-rn-2.jpg'],
         'Camisa React': ['camisa-react-1.jpg', 'camisa-react-2.jpg'],
-        'Camisa NodeJS': ['camisa-nodejs-1.jpg', 'camisa-nodejs-2.jpg'],
-        'Camisa JavaScript': ['camisa-javascript-1.jpg', 'camisa-javascript-2.jpg'],
+        'Camisa NodeJS': ['camisa-nodejs-1.jpg'],
+        'Camisa JavaScript': ['camisa-javascript-1.jpg'],
         'Camisa PHP': ['camisa-php-1.jpg', 'camisa-php-2.jpg'],
     }
 
